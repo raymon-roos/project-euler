@@ -1,38 +1,17 @@
 fn main() {
-    println!("{}", largest_prime_factor(13195).unwrap());
-
-    // Don't run this unless you're willing to wait a while...
-    // println!(
-    //     "{}",
-    //     largest_prime_factor(600851475143).unwrap()
-    // );
+    println!("{}", largest_prime_factor(600851475143).unwrap());
 }
 
-fn largest_prime_factor(n: u64) -> Option<usize> {
-    find_primes_up_to(n)
-        .into_iter()
-        .rev()
-        .find(|&p| n % p as u64 == 0)
+fn largest_prime_factor(n: u64) -> Option<u64> {
+    let limit = f32::sqrt(n as f32) as u64;
+
+    (2..=limit).rev().find(|&i| n % i == 0 && is_prime(i))
 }
 
-fn find_primes_up_to(inclusive_limit: u64) -> Vec<usize> {
-    let mut primes = vec![2];
+fn is_prime(x: u64) -> bool {
+    let limit = f32::sqrt(x as f32) as usize;
 
-    (3..=inclusive_limit).step_by(2).for_each(|i| {
-        if is_prime(i as usize, primes.as_slice()) {
-            primes.push(i as usize)
-        }
-    });
-
-    primes
-}
-
-fn is_prime(x: usize, primes: &[usize]) -> bool {
-    let root = f32::sqrt(x as f32) as usize;
-    !primes
-        .iter()
-        .take_while(|&p| *p <= root)
-        .any(|p| x % p == 0)
+    x % 2 != 0 && !(3..=limit).step_by(2).any(|i| x % i as u64 == 0)
 }
 
 #[cfg(test)]
@@ -41,10 +20,9 @@ mod test {
 
     #[test]
     fn correct_primes() {
-        assert_eq!(
-            vec![2, 3, 5, 7, 11, 13, 17, 19, 23, 29],
-            find_primes_up_to(29)
-        );
+        assert!(is_prime(3));
+        assert!(!is_prime(4));
+        assert!(is_prime(5));
     }
 
     #[test]
