@@ -1,15 +1,26 @@
+use std::{fmt::Display, time::Instant};
+
 fn main() {
-    println!("{}", sum_of_multiples(3, 10).unwrap())
+    dbg_bench(|| sum_of_multiples(&[3, 5], 1e7 as u32).unwrap());
 }
 
-#[derive(Debug)]
-struct RangeError;
-
-fn sum_of_multiples(step: u32, inclusive_limit: u32) -> Result<u32, RangeError> {
-    match (step, inclusive_limit) {
-        (0, _) | (_, 0) => Err(RangeError),
-        (step @ 1.., limit @ 1..) => Ok((1..limit).filter(|i| i % step == 0).sum()),
+fn sum_of_multiples(factors: &[u32], exclusive_limit: u32) -> Result<u128, String> {
+    if factors.contains(&0) {
+        return Err("Cannot divide by zero!".to_string());
     }
+
+    Ok((1..exclusive_limit as u128)
+        .filter(|&i| factors.iter().any(|&f| i % f as u128 == 0))
+        .sum::<u128>())
+}
+
+fn dbg_bench<T: Display>(func: fn() -> T) {
+    let now = Instant::now();
+    let result = func();
+    for _ in 0..5 {
+        func();
+    }
+    println!("result: {result}, duration: {:.4?}", now.elapsed() / 10)
 }
 
 #[cfg(test)]
@@ -18,20 +29,17 @@ mod test {
 
     #[test]
     fn error_when_out_of_range() {
-        assert!(sum_of_multiples(0, 10).is_err());
-        assert!(sum_of_multiples(2, 0).is_err());
+        assert!(sum_of_multiples(&[0], 10).is_err());
     }
 
     #[test]
     fn sum_of_multiples_of_2_below_10() {
-        assert_eq!(20, sum_of_multiples(2, 10).unwrap())
+        assert_eq!(Ok(0), sum_of_multiples(&[2], 0));
+        assert_eq!(Ok(20), sum_of_multiples(&[2], 10))
     }
 
     #[test]
     fn sum_of_multiples_of_3_and_5_below_10() {
-        assert_eq!(
-            23,
-            sum_of_multiples(3, 10).unwrap() + sum_of_multiples(5, 10).unwrap()
-        )
+        assert_eq!(Ok(23), sum_of_multiples(&[3, 5], 10))
     }
 }
