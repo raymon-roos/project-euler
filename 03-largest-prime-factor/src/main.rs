@@ -5,13 +5,13 @@ fn main() {
 fn largest_prime_factor(n: u64) -> Option<u64> {
     let limit = f32::sqrt(n as f32) as u64;
 
-    (2..=limit).rev().find(|&i| n % i == 0 && is_prime(i))
+    (2..=limit).rfind(|&i| n % i == 0 && is_prime(i))
 }
 
 fn is_prime(x: u64) -> bool {
-    let limit = f32::sqrt(x as f32) as usize;
+    let limit = f32::sqrt(x as f32) as u64;
 
-    x % 2 != 0 && !(3..=limit).step_by(2).any(|i| x % i as u64 == 0)
+    x % 2 != 0 && !(3..=limit).step_by(2).any(|i| x % i == 0)
 }
 
 #[cfg(test)]
