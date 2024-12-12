@@ -27,7 +27,7 @@ The largest product of two 3-digit numbers is 999 · 999 = 998001, and the small
 
 _ps:_
 
-Well, my solution ended up nothing like what I described above. I had to content with the
+Well, my solution ended up nothing like what I described above. I had to contend with the
 fact that any discovered palindromes have to be products of two actual n-digit numbers.
 The largest palindrome counting down from 998001 is 997799 = 11 · 90709. So instead I'm
 working from the factors between 100 and 999 directly and decrementing those.
