@@ -25,3 +25,9 @@ become a lot smaller.
 
 I absolutely love how Rust's language features let me express this so succinctly. Ranges
 and method chains turn the whole thing into basically two lines of code.
+
+### Take 3
+
+A classmate of mine had a way better approach, shrinking the search space with every step.
+I tried but couldn't find a way to express it with an iterator chain. Seems like that
+isn't possible at all, for good reason, probably.
