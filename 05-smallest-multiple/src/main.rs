@@ -11,7 +11,6 @@ fn main() {
 fn lcm_step_by_n(n: usize) -> usize {
     match n {
         i @ ..=2 => i,
-        i @ 3..=5 => (3..=i).product(),
         _ => (n..)
             .step_by(n)
             .find(|&i| (2..=n).all(|d| i % d == 0))
@@ -65,6 +64,7 @@ mod test {
 
     #[test]
     fn correct_smallest_multiple_of_1_through_n_step_by_prime_product() {
+        assert_eq!(6, lcm_step_by_n(3));
         assert_eq!(12, lcm_step_by_n(4));
         assert_eq!(60, lcm_step_by_n(6));
         assert_eq!(840, lcm_step_by_n(8));
