@@ -8,4 +8,5 @@ members = [
   "05-smallest-multiple",
   "06-sum-square-difference",
   "07-nth-prime",
+  "08-largest-product-in-a-series",
 ]

@@ -15,6 +15,10 @@ name = "largest-prime-factor"
 version = "0.1.0"
 
 [[package]]
+name = "largest-product-in-a-series"
+version = "0.1.0"
+
+[[package]]
 name = "n-primes-rust"
 version = "0.1.0"
 
