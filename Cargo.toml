@@ -1,0 +1,11 @@
+[workspace]
+resolver = "2"
+members = [
+  "01-sum-of-multiples-3-5",
+  "02-even-fibonacci",
+  "03-largest-prime-factor",
+  "04-largest-palindrome",
+  "05-smallest-multiple",
+  "06-sum-square-difference",
+  "07-nth-prime",
+]
