@@ -27,6 +27,10 @@ name = "smallest-multiple"
 version = "0.1.0"
 
 [[package]]
+name = "special-pythagorean-triplet"
+version = "0.1.0"
+
+[[package]]
 name = "sum-of-multiples-3-5"
 version = "0.1.0"
 
