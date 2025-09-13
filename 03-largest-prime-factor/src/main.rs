@@ -29,7 +29,8 @@ fn oh_no_what_even(n: u64) -> u64 {
             2.. if factor.pow(2) > n => n,
             1 => factor,
             n if n % factor == 0 && is_prime(factor) => f(n / factor, factor),
-            _ => f(n, factor + if factor > 2 { 2 } else { 1 }),
+            _ if factor == 2 => f(n, factor + 1),
+            _ => f(n, factor + 2),
         }
     }
     f(n, 2)
