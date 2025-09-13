@@ -1,14 +1,17 @@
-use std::{fmt::Display, time::Instant};
+use dbg_bench::dbg_bench;
 
 fn main() {
-    println!("3 digits:");
-    dbg_bench(|| largest_palindrome_with_two_n_digit_factors(3).unwrap());
+    dbg_bench(
+        "3 digits:".to_string(),
+        || largest_palindrome_with_two_n_digit_factors(3).unwrap(),
+        4,
+    );
 
-    println!("4 digits:");
-    dbg_bench(|| largest_palindrome_with_two_n_digit_factors(4).unwrap());
-
-    println!("5 digits:");
-    dbg_bench(|| largest_palindrome_with_two_n_digit_factors(5).unwrap());
+    dbg_bench(
+        "4 digits:".to_string(),
+        || largest_palindrome_with_two_n_digit_factors(4).unwrap(),
+        4,
+    );
 }
 
 fn largest_palindrome_with_two_n_digit_factors(n: u8) -> Result<u64, String> {
@@ -39,15 +42,6 @@ fn largest_palindrome_with_two_n_digit_factors(n: u8) -> Result<u64, String> {
 fn is_palindrome(n: u64) -> bool {
     let number = n.to_string();
     number.chars().rev().collect::<String>() == number
-}
-
-fn dbg_bench<T: Display>(func: fn() -> T) {
-    let now = Instant::now();
-    let result = func();
-    for _ in 0..3 {
-        func();
-    }
-    println!("result: {result}, duration: {:.4?}", now.elapsed() / 4)
 }
 
 #[cfg(test)]

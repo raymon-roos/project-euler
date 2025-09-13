@@ -1,3 +1,5 @@
+use dbg_bench::dbg_bench;
+
 fn main() {
     dbg_bench(
         "simple".to_string(),
@@ -30,21 +32,6 @@ fn fast_sum_square_difference(n: isize) -> Option<isize> {
     // Don't know why the result is negative, that isn't part
     // of the answer at https://stackoverflow.com/a/15593495
     Some(-(3 * n.pow(2) + 2 * n) * (1 - n.pow(2)) / 12)
-}
-
-fn dbg_bench<T: std::fmt::Display>(title: String, func: fn() -> T, count: u8) {
-    let now = std::time::Instant::now();
-    for _ in 1..count {
-        func();
-    }
-    let result = func();
-    let elapsed = now.elapsed();
-
-    println!(
-        "{title} -> result: {result}, runs: {count}, total duration: {:.4?}, avg duration: {:.4?}",
-        elapsed,
-        elapsed / 4
-    )
 }
 
 #[cfg(test)]

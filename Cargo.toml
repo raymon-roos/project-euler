@@ -1,6 +1,7 @@
 [workspace]
 resolver = "2"
 members = [
+  "dbg-bench",
   "01-sum-of-multiples-3-5",
   "02-even-fibonacci",
   "03-largest-prime-factor",
@@ -11,3 +12,5 @@ members = [
   "08-largest-product-in-a-series",
   "09-special-pythagorean-triplet",
 ]
+[workspace.dependencies]
+dbg-bench.path = "./dbg-bench"

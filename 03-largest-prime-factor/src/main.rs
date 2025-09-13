@@ -1,14 +1,19 @@
-use std::{fmt::Debug, time::Instant};
+use dbg_bench::dbg_bench;
 
 fn main() {
-    println!("My original");
-    dbg_bench(|| largest_prime_factor(600851475143).unwrap(), 3);
+    dbg_bench(
+        "My original".to_string(),
+        || largest_prime_factor(600851475143).unwrap(),
+        3,
+    );
 
-    println!("recursive");
-    dbg_bench(|| oh_no_what_even(600851475143), 3);
+    dbg_bench("Recursive".to_string(), || oh_no_what_even(600851475143), 3);
 
-    println!("Classmate's");
-    dbg_bench(|| classmates_better_version(600851475143), 3);
+    dbg_bench(
+        "Classmate's".to_string(),
+        || classmates_better_version(600851475143),
+        3,
+    );
 }
 
 fn largest_prime_factor(n: u64) -> Option<u64> {
@@ -51,20 +56,6 @@ fn classmates_better_version(n: u64) -> u64 {
         1 => factor,
         _ => value,
     }
-}
-
-fn dbg_bench<T: Debug>(func: fn() -> T, count: u8) {
-    let now = Instant::now();
-    for _ in 1..count {
-        func();
-    }
-    let result = func();
-    println!(
-        "result: {:?}, runs: {count}, total duration: {:.4?}, avg duration: {:.4?}",
-        result,
-        now.elapsed(),
-        now.elapsed() / count.into()
-    )
 }
 
 #[cfg(test)]

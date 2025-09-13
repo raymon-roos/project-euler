@@ -1,7 +1,11 @@
-use std::{fmt::Display, time::Instant};
+use dbg_bench::dbg_bench;
 
 fn main() {
-    dbg_bench(|| sum_of_multiples(&[3, 5], 1e7 as u32).unwrap());
+    dbg_bench(
+        "sum of multiples".to_string(),
+        || sum_of_multiples(&[3, 5], 1e7 as u32).unwrap(),
+        5,
+    );
 }
 
 fn sum_of_multiples(factors: &[u32], exclusive_limit: u32) -> Result<u128, String> {
@@ -12,15 +16,6 @@ fn sum_of_multiples(factors: &[u32], exclusive_limit: u32) -> Result<u128, Strin
     Ok((1..exclusive_limit as u128)
         .filter(|&i| factors.iter().any(|&f| i % f as u128 == 0))
         .sum::<u128>())
-}
-
-fn dbg_bench<T: Display>(func: fn() -> T) {
-    let now = Instant::now();
-    let result = func();
-    for _ in 0..5 {
-        func();
-    }
-    println!("result: {result}, duration: {:.4?}", now.elapsed() / 10)
 }
 
 #[cfg(test)]

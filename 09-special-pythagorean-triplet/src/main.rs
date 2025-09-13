@@ -1,3 +1,5 @@
+use dbg_bench::dbg_bench;
+
 fn main() {
     dbg_bench(
         "nested loops".to_string(),
@@ -45,21 +47,6 @@ fn pyth_triples_iterator(n: usize) -> Option<(usize, usize, usize)> {
 
 fn is_pythagorean_triple((a, b, c): (usize, usize, usize)) -> bool {
     b < c && a < b && a * a + b * b == c * c
-}
-
-fn dbg_bench<T: std::fmt::Display>(title: String, func: fn() -> T, count: u8) {
-    let now = std::time::Instant::now();
-    for _ in 1..count {
-        func();
-    }
-    let result = func();
-    let elapsed = now.elapsed();
-
-    println!(
-        "{title} -> result: {result}, runs: {count}, total duration: {:.4?}, avg duration: {:.4?}",
-        elapsed,
-        elapsed / count as u32
-    )
 }
 
 #[cfg(test)]
