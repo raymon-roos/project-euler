@@ -11,6 +11,7 @@ members = [
   "07-nth-prime",
   "08-largest-product-in-a-series",
   "09-special-pythagorean-triplet",
+  "10-prime-summation",
 ]
 [workspace.dependencies]
 dbg-bench.path = "./dbg-bench"
